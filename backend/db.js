@@ -3,8 +3,7 @@ const mongoose = require("mongoose");
 mongoose.connect(
 	"mongodb+srv://admin1:SDZ3E9dKfzt5vYEc@cluster0.rxi0w.mongodb.net/paytm?retryWrites=true&w=majority"
 );
-
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
 	username: {
 		type: String,
 		required: true,
@@ -33,8 +32,22 @@ const userSchema = mongoose.Schema({
 	},
 });
 
+const accountSchema = new mongoose.Schema({
+	userId: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User",
+		required: true,
+	},
+	balance: {
+		type: Number,
+		required: true,
+	},
+});
+
+const Account = mongoose.model("Account", accountSchema);
 const User = mongoose.model("User", userSchema);
 
 module.exports = {
 	User,
+	Account,
 };

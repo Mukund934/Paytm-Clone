@@ -47,6 +47,36 @@ router.post("/signup", async (req, res) => {
 	});
 });
 
+const signinSchema = zod.object({
+	username: zod.string(),
+	password: zod.string(),
+});
 
+router.post("/signin", async (req, res) => {
+	const parseResult = signinSchema.safeParse(req.body);
+	if (!parseResult.success) {
+		return res.status(400).json({
+			message: "Incorrect inputs",
+			errors: parseResult.error.errors,
+		});
+	}
+
+	const user = await User.findOne({
+		username: req.body.username,
+		password: req.body.password,
+	});
+
+	if (!user) {
+		return res.status(401).json({
+			message: "Invalid credentials",
+		});
+	}
+
+	const token = jwt.sign({ userId: user._id }, JWT_SECRET);
+
+	res.json({
+		token: token,
+	});
+});
 
 module.exports = router;

@@ -7,10 +7,9 @@ app.use(cors());
 
 const mainRouter = require("./routes/index");
 
-
 app.use("/api/v1", mainRouter);
 
-app.use("/api/v2", V2Router);
+// app.use("/api/v2", V2Router);
 
 // /api/v1/user/signup
 // /api/v1/user/signup
@@ -21,4 +20,7 @@ app.use("/api/v2", V2Router);
 
 // ! so we will create two more router
 
-app.listen(3000);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

@@ -1,1 +1,1 @@
-module.exports = "mukund62039612340";
+module.exports = { JWT_SECRET: "mukund62039612340" };

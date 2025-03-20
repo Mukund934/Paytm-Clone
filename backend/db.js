@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 mongoose.connect(
 	"mongodb+srv://admin1:SDZ3E9dKfzt5vYEc@cluster0.rxi0w.mongodb.net/paytm?retryWrites=true&w=majority"
 );
@@ -13,41 +12,18 @@ const userSchema = new mongoose.Schema({
 		minLength: 3,
 		maxLength: 30,
 	},
-	password: {
-		type: String,
-		required: true,
-		minLength: 6,
-	},
-	firstName: {
-		type: String,
-		required: true,
-		trim: true,
-		maxLength: 50,
-	},
-	lastName: {
-		type: String,
-		required: true,
-		trim: true,
-		maxLength: 50,
-	},
+	password: { type: String, required: true, minLength: 6 },
+	firstName: { type: String, required: true, trim: true, maxLength: 50 },
+	lastName: { type: String, required: true, trim: true, maxLength: 50 },
 });
-
 const accountSchema = new mongoose.Schema({
 	userId: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "User",
 		required: true,
 	},
-	balance: {
-		type: Number,
-		required: true,
-	},
+	balance: { type: Number, required: true },
 });
-
 const Account = mongoose.model("Account", accountSchema);
 const User = mongoose.model("User", userSchema);
-
-module.exports = {
-	User,
-	Account,
-};
+module.exports = { User, Account };
